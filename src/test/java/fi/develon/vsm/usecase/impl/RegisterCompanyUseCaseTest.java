@@ -34,7 +34,7 @@ public class RegisterCompanyUseCaseTest {
     void givenRegisterRequestWhenAlreadyRegisteredByIdentifierShouldReturnDuplicateCompanyByIdentifierException() {
         RegisterCompanyRequest request = new RegisterCompanyRequest(new CompanyName("c0"), new IdentificationNumber("1000"), null);
         Company registeredCompany = new Company(new CompanyId(1L), null, new IdentificationNumber("1000"), new CompanyName("c1"), null, LocalDateTime.now(), LocalDateTime.now());
-        assertThat(registeredCompany.identificationNumber(), equalTo(request.getIdentificationNumber()));
+        assertThat(registeredCompany.getIdentificationNumber(), equalTo(request.getIdentificationNumber()));
         doReturn(Optional.of(registeredCompany)).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
         var response = useCase.register(request);
         assertThat(response.isFailure(), equalTo(true));
@@ -45,8 +45,8 @@ public class RegisterCompanyUseCaseTest {
     void givenRegisterRequestWhenAlreadyRegisteredByNameShouldReturnDuplicateCompanyByNameException() {
         RegisterCompanyRequest request = new RegisterCompanyRequest(new CompanyName("c0"), new IdentificationNumber("1000"), null);
         Company registeredCompany = new Company(new CompanyId(1L), null, new IdentificationNumber("2000"), new CompanyName("c0"), null, LocalDateTime.now(), LocalDateTime.now());
-        assertThat(registeredCompany.identificationNumber(), not(equalTo(request.getIdentificationNumber())));
-        assertThat(registeredCompany.name(), equalTo(request.getName()));
+        assertThat(registeredCompany.getIdentificationNumber(), not(equalTo(request.getIdentificationNumber())));
+        assertThat(registeredCompany.getName(), equalTo(request.getName()));
         doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
         doReturn(Optional.of(registeredCompany)).when(companyRepository).findByName(request.getName());
         var response = useCase.register(request);
@@ -116,8 +116,8 @@ public class RegisterCompanyUseCaseTest {
         assertThat(request.getIdentificationNumber(), equalTo(response.get().getIdentificationNumber()));
 
         assertThat(request.getParentIdentificationNumber(), equalTo(response.get().getParentIdentificationNumber()));
-        assertThat(parentCompany.identificationNumber(), equalTo(response.get().getParentIdentificationNumber()));
-        assertThat(parentCompany.name(), equalTo(response.get().getParentName()));
+        assertThat(parentCompany.getIdentificationNumber(), equalTo(response.get().getParentIdentificationNumber()));
+        assertThat(parentCompany.getName(), equalTo(response.get().getParentName()));
         assertThat(response.get().getUpdatedAt(), is(notNullValue()));
     }
 }

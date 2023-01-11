@@ -12,6 +12,5 @@ import fi.develon.vsm.domain.core.entity.*;
 @NoArgsConstructor
 public class RenameCompanyRequest {
     private IdentificationNumber identificationNumber;
-    private CompanyName currentName;
     private CompanyName newName;
 }

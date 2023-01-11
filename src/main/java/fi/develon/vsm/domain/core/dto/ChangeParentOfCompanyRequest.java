@@ -12,6 +12,5 @@ import fi.develon.vsm.domain.core.entity.*;
 @NoArgsConstructor
 public class ChangeParentOfCompanyRequest {
     private IdentificationNumber identificationNumber;
-    private IdentificationNumber currentParentIdentificationNumber;
     private IdentificationNumber newParentIdentificationNumber;
 }

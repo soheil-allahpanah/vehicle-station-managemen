@@ -44,18 +44,18 @@ public class RegisterCompanyUseCaseImpl implements RegisterCompanyUseCase {
             }
         }
 
-        Company company = companyRepository.save(new Company(null, parentCompany == null ? null : parentCompany.id()
+        Company company = companyRepository.save(new Company(null, parentCompany == null ? null : parentCompany.getId()
                 , request.getIdentificationNumber()
                 , request.getName()
                 , null
                 , LocalDateTime.now()
                 , LocalDateTime.now()));
         return Try.success(RegisterCompanyResponse.builder()
-                .name(company.name())
-                .parentIdentificationNumber(parentCompany == null ? null : parentCompany.identificationNumber())
-                .parentName(parentCompany == null ? null : parentCompany.name())
-                .identificationNumber(company.identificationNumber())
-                .updatedAt(company.updatedAt())
+                .name(company.getName())
+                .parentIdentificationNumber(parentCompany == null ? null : parentCompany.getIdentificationNumber())
+                .parentName(parentCompany == null ? null : parentCompany.getName())
+                .identificationNumber(company.getIdentificationNumber())
+                .updatedAt(company.getUpdatedAt())
                 .build());
     }
 
