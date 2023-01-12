@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: vehicle-station-management
+
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driverClassName: org.postgresql.Driver
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  jackson:
+    default-property-inclusion: non_null
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

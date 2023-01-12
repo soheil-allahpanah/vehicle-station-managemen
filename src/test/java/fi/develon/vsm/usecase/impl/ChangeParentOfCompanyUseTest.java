@@ -35,9 +35,9 @@ public class ChangeParentOfCompanyUseTest {
         ChangeParentOfCompanyRequest request = new ChangeParentOfCompanyRequest( new IdentificationNumber("1001")
                 , new IdentificationNumber("1000")
                 );
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
         var response = useCase.changeParent(request);
-        verify((companyRepository), times(1)).findByIdentifierNumber(any(IdentificationNumber.class));
+        verify((companyRepository), times(1)).findByIdentificationNumber(any(IdentificationNumber.class));
         assertThat(response.isFailure(), equalTo(true));
         assertThat(response.getCause(), instanceOf(CompanyNotRegisteredException.class));
     }
@@ -53,11 +53,11 @@ public class ChangeParentOfCompanyUseTest {
                 , new CompanyName("c1"), null
                 , LocalDateTime.now()
                 , LocalDateTime.now());
-        doReturn(Optional.of(registeredCompany)).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getNewParentIdentificationNumber());
+        doReturn(Optional.of(registeredCompany)).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getNewParentIdentificationNumber());
 
         var response = useCase.changeParent(request);
-        verify((companyRepository), times(2)).findByIdentifierNumber(any(IdentificationNumber.class));
+        verify((companyRepository), times(2)).findByIdentificationNumber(any(IdentificationNumber.class));
         assertThat(response.isFailure(), equalTo(true));
         assertThat(response.getCause(), instanceOf(NewParentCompanyNotRegisteredException.class));
     }
@@ -87,12 +87,12 @@ public class ChangeParentOfCompanyUseTest {
                 , LocalDateTime.now()
                 , LocalDateTime.now());
 
-        doReturn(Optional.of(registeredCompany)).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
-        doReturn(Optional.of(newParentCompany)).when(companyRepository).findByIdentifierNumber(request.getNewParentIdentificationNumber());
+        doReturn(Optional.of(registeredCompany)).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
+        doReturn(Optional.of(newParentCompany)).when(companyRepository).findByIdentificationNumber(request.getNewParentIdentificationNumber());
 
         doReturn(updatedCompany).when(companyRepository).save(any(Company.class));
         var response = useCase.changeParent(request);
-        verify((companyRepository), times(3)).findByIdentifierNumber(any(IdentificationNumber.class));
+        verify((companyRepository), times(2)).findByIdentificationNumber(any(IdentificationNumber.class));
 
 
         assertThat(response.isSuccess(), equalTo(true));

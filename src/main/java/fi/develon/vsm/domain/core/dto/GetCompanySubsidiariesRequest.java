@@ -10,6 +10,6 @@ import fi.develon.vsm.domain.core.entity.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetCompanyInfoRequest {
+public class GetCompanySubsidiariesRequest {
     private IdentificationNumber identificationNumber;
 }

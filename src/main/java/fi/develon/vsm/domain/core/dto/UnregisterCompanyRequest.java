@@ -11,4 +11,5 @@ import fi.develon.vsm.domain.core.entity.*;
 @NoArgsConstructor
 public class UnregisterCompanyRequest {
     private IdentificationNumber identificationNumber;
+    private Boolean unregisterItsSubsidiary;
 }

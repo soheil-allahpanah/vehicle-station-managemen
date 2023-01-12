@@ -35,7 +35,7 @@ public class RegisterCompanyUseCaseTest {
         RegisterCompanyRequest request = new RegisterCompanyRequest(new CompanyName("c0"), new IdentificationNumber("1000"), null);
         Company registeredCompany = new Company(new CompanyId(1L), null, new IdentificationNumber("1000"), new CompanyName("c1"), null, LocalDateTime.now(), LocalDateTime.now());
         assertThat(registeredCompany.getIdentificationNumber(), equalTo(request.getIdentificationNumber()));
-        doReturn(Optional.of(registeredCompany)).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
+        doReturn(Optional.of(registeredCompany)).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
         var response = useCase.register(request);
         assertThat(response.isFailure(), equalTo(true));
         assertThat(response.getCause(), instanceOf(DuplicateCompanyByIdentifierException.class));
@@ -47,7 +47,7 @@ public class RegisterCompanyUseCaseTest {
         Company registeredCompany = new Company(new CompanyId(1L), null, new IdentificationNumber("2000"), new CompanyName("c0"), null, LocalDateTime.now(), LocalDateTime.now());
         assertThat(registeredCompany.getIdentificationNumber(), not(equalTo(request.getIdentificationNumber())));
         assertThat(registeredCompany.getName(), equalTo(request.getName()));
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
         doReturn(Optional.of(registeredCompany)).when(companyRepository).findByName(request.getName());
         var response = useCase.register(request);
         assertThat(response.isFailure(), equalTo(true));
@@ -58,11 +58,11 @@ public class RegisterCompanyUseCaseTest {
     void givenRegisterRequestWhenParentExistButNotRegisteredShouldReturnParentNotRegisteredException() {
         RegisterCompanyRequest request = new RegisterCompanyRequest(new CompanyName("c1"), new IdentificationNumber("1001"), new IdentificationNumber("1000"));
         Company parentCompany = new Company(new CompanyId(0L), null, new IdentificationNumber("1000"), new CompanyName("c0"), null, LocalDateTime.now(), LocalDateTime.now());
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
         doReturn(Optional.empty()).when(companyRepository).findByName(request.getName());
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getParentIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getParentIdentificationNumber());
         var response = useCase.register(request);
-        verify((companyRepository), times(2)).findByIdentifierNumber(any(IdentificationNumber.class));
+        verify((companyRepository), times(2)).findByIdentificationNumber(any(IdentificationNumber.class));
         assertThat(response.isFailure(), equalTo(true));
         assertThat(response.getCause(), instanceOf(ParentCompanyNotRegisteredException.class));
     }
@@ -71,11 +71,11 @@ public class RegisterCompanyUseCaseTest {
     void givenRegisterRequestWhenParentNotExistShouldNotCheckParentExistence() {
         RegisterCompanyRequest request = new RegisterCompanyRequest(new CompanyName("c1"), new IdentificationNumber("1001"), null);
         Company registeredCompany = new Company(new CompanyId(1L), null, new IdentificationNumber("1001"), new CompanyName("c1"), null, LocalDateTime.now(), LocalDateTime.now());
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
         doReturn(Optional.empty()).when(companyRepository).findByName(request.getName());
         doReturn(registeredCompany).when(companyRepository).save(any(Company.class));
         useCase.register(request);
-        verify((companyRepository), times(1)).findByIdentifierNumber(any(IdentificationNumber.class));
+        verify((companyRepository), times(1)).findByIdentificationNumber(any(IdentificationNumber.class));
     }
 
 
@@ -83,9 +83,9 @@ public class RegisterCompanyUseCaseTest {
     void givenRegisterRequestWithOutParentWhenItsNotRegisteredShouldReturnRegisterCompany() {
         RegisterCompanyRequest request = new RegisterCompanyRequest(new CompanyName("c0"), new IdentificationNumber("1000"), null);
         Company registeredCompany = new Company(new CompanyId(1L), null, new IdentificationNumber("1000"), new CompanyName("c0"), null, LocalDateTime.now(), LocalDateTime.now());
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
         doReturn(Optional.empty()).when(companyRepository).findByName(request.getName());
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getParentIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getParentIdentificationNumber());
         doReturn(registeredCompany).when(companyRepository).save(any(Company.class));
         var response = useCase.register(request);
 
@@ -103,14 +103,14 @@ public class RegisterCompanyUseCaseTest {
         RegisterCompanyRequest request = new RegisterCompanyRequest(new CompanyName("c1"), new IdentificationNumber("1001"), new IdentificationNumber("1000"));
         Company parentCompany = new Company(new CompanyId(1L), null, new IdentificationNumber("1000"), new CompanyName("c0"), null, LocalDateTime.now(), LocalDateTime.now());
         Company registeredCompany = new Company(new CompanyId(2L), null, new IdentificationNumber("1001"), new CompanyName("c1"), null, LocalDateTime.now(), LocalDateTime.now());
-        doReturn(Optional.empty()).when(companyRepository).findByIdentifierNumber(request.getIdentificationNumber());
+        doReturn(Optional.empty()).when(companyRepository).findByIdentificationNumber(request.getIdentificationNumber());
         doReturn(Optional.empty()).when(companyRepository).findByName(request.getName());
-        doReturn(Optional.of(parentCompany)).when(companyRepository).findByIdentifierNumber(request.getParentIdentificationNumber());
+        doReturn(Optional.of(parentCompany)).when(companyRepository).findByIdentificationNumber(request.getParentIdentificationNumber());
         doReturn(registeredCompany).when(companyRepository).save(any(Company.class));
         var response = useCase.register(request);
 
         verify((companyRepository), times(1)).save(any(Company.class));
-        verify((companyRepository), times(2)).findByIdentifierNumber(any(IdentificationNumber.class));
+        verify((companyRepository), times(2)).findByIdentificationNumber(any(IdentificationNumber.class));
         assertThat(response.isSuccess(), equalTo(true));
         assertThat(request.getName(), equalTo(response.get().getName()));
         assertThat(request.getIdentificationNumber(), equalTo(response.get().getIdentificationNumber()));
