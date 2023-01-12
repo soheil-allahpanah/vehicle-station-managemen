@@ -1,10 +1,10 @@
-package fi.develon.vsm.usecase.impl;
+package fi.develon.vsm.usecase.impl.company;
 
 import fi.develon.vsm.domain.core.dto.RenameCompanyRequest;
 import fi.develon.vsm.domain.core.dto.RenameCompanyResponse;
 import fi.develon.vsm.domain.core.entity.Company;
 import fi.develon.vsm.domain.repository.CompanyRepository;
-import fi.develon.vsm.usecase.RenameCompanyUseCase;
+import fi.develon.vsm.usecase.company.RenameCompanyUseCase;
 import fi.develon.vsm.usecase.exception.CompanyNotRegisteredException;
 import fi.develon.vsm.usecase.exception.DuplicateCompanyByNameException;
 import io.vavr.control.Try;

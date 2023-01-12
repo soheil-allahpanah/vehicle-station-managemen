@@ -1,10 +1,10 @@
-package fi.develon.vsm.usecase.impl;
+package fi.develon.vsm.usecase.impl.company;
 
 import fi.develon.vsm.domain.core.dto.RegisterCompanyRequest;
 import fi.develon.vsm.domain.core.dto.RegisterCompanyResponse;
 import fi.develon.vsm.domain.core.entity.Company;
 import fi.develon.vsm.domain.repository.CompanyRepository;
-import fi.develon.vsm.usecase.RegisterCompanyUseCase;
+import fi.develon.vsm.usecase.company.RegisterCompanyUseCase;
 import fi.develon.vsm.usecase.exception.DuplicateCompanyByIdentifierException;
 import fi.develon.vsm.usecase.exception.DuplicateCompanyByNameException;
 import fi.develon.vsm.usecase.exception.ParentCompanyNotRegisteredException;

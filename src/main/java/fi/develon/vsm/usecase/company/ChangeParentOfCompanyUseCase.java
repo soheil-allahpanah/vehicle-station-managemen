@@ -1,4 +1,4 @@
-package fi.develon.vsm.usecase;
+package fi.develon.vsm.usecase.company;
 
 import fi.develon.vsm.domain.core.dto.ChangeParentOfCompanyRequest;
 import fi.develon.vsm.domain.core.dto.ChangeParentOfCompanyResponse;

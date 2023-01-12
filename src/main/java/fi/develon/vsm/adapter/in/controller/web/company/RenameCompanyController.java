@@ -1,11 +1,11 @@
-package fi.develon.vsm.adapter.in.controller.web;
+package fi.develon.vsm.adapter.in.controller.web.company;
 
 import fi.develon.vsm.adapter.in.controller.dto.RenameCompanyReqDto;
 import fi.develon.vsm.adapter.in.controller.dto.RenameCompanyResDto;
 import fi.develon.vsm.domain.core.dto.RenameCompanyRequest;
 import fi.develon.vsm.domain.core.entity.CompanyName;
 import fi.develon.vsm.domain.core.entity.IdentificationNumber;
-import fi.develon.vsm.usecase.RenameCompanyUseCase;
+import fi.develon.vsm.usecase.company.RenameCompanyUseCase;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

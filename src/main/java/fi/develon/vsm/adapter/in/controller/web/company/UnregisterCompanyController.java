@@ -1,13 +1,12 @@
-package fi.develon.vsm.adapter.in.controller.web;
+package fi.develon.vsm.adapter.in.controller.web.company;
 
 import fi.develon.vsm.adapter.in.controller.dto.CompanyInfoResDto;
-import fi.develon.vsm.adapter.in.controller.dto.RenameCompanyResDto;
 import fi.develon.vsm.adapter.in.controller.dto.UnregisterCompanyReqDto;
 import fi.develon.vsm.adapter.in.controller.dto.UnregisterCompanyResDto;
 import fi.develon.vsm.common.ObjUtil;
 import fi.develon.vsm.domain.core.dto.UnregisterCompanyRequest;
 import fi.develon.vsm.domain.core.entity.IdentificationNumber;
-import fi.develon.vsm.usecase.UnregisterCompanyUseCase;
+import fi.develon.vsm.usecase.company.UnregisterCompanyUseCase;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

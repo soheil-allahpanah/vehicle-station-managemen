@@ -2,11 +2,12 @@ package fi.develon.vsm.usecase.impl;
 
 import fi.develon.vsm.domain.core.dto.RegisterCompanyRequest;
 import fi.develon.vsm.domain.repository.CompanyRepository;
-import fi.develon.vsm.usecase.RegisterCompanyUseCase;
+import fi.develon.vsm.usecase.company.RegisterCompanyUseCase;
 import fi.develon.vsm.domain.core.entity.*;
 import fi.develon.vsm.usecase.exception.DuplicateCompanyByIdentifierException;
 import fi.develon.vsm.usecase.exception.DuplicateCompanyByNameException;
 import fi.develon.vsm.usecase.exception.ParentCompanyNotRegisteredException;
+import fi.develon.vsm.usecase.impl.company.RegisterCompanyUseCaseImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

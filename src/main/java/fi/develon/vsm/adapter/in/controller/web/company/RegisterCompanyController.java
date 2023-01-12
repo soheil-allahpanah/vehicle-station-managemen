@@ -1,9 +1,9 @@
-package fi.develon.vsm.adapter.in.controller.web;
+package fi.develon.vsm.adapter.in.controller.web.company;
 
 import fi.develon.vsm.adapter.in.controller.dto.RegisterCompanyReqDto;
 import fi.develon.vsm.adapter.in.controller.dto.RegisterCompanyResDto;
 import fi.develon.vsm.adapter.in.controller.mapper.RegisterCompanyControllerMapper;
-import fi.develon.vsm.usecase.RegisterCompanyUseCase;
+import fi.develon.vsm.usecase.company.RegisterCompanyUseCase;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

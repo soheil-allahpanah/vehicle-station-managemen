@@ -1,10 +1,10 @@
-package fi.develon.vsm.adapter.in.controller.web;
+package fi.develon.vsm.adapter.in.controller.web.company;
 
 import fi.develon.vsm.adapter.in.controller.dto.GetCompanySubsidiariesResDto;
 import fi.develon.vsm.adapter.in.controller.mapper.GetCompanySubsidiariesControllerMapper;
 import fi.develon.vsm.domain.core.dto.GetCompanySubsidiariesRequest;
 import fi.develon.vsm.domain.core.entity.IdentificationNumber;
-import fi.develon.vsm.usecase.GetCompanySubsidiariesUseCase;
+import fi.develon.vsm.usecase.company.GetCompanySubsidiariesUseCase;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

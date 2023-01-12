@@ -3,9 +3,10 @@ package fi.develon.vsm.usecase.impl;
 
 import fi.develon.vsm.domain.core.dto.ChangeParentOfCompanyRequest;
 import fi.develon.vsm.domain.repository.CompanyRepository;
-import fi.develon.vsm.usecase.ChangeParentOfCompanyUseCase;
+import fi.develon.vsm.usecase.company.ChangeParentOfCompanyUseCase;
 import fi.develon.vsm.domain.core.entity.*;
 import fi.develon.vsm.usecase.exception.*;
+import fi.develon.vsm.usecase.impl.company.ChangeParentOfCompanyUseCaseImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

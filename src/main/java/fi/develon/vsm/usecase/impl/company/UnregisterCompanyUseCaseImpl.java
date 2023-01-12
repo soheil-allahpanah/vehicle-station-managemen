@@ -1,10 +1,10 @@
-package fi.develon.vsm.usecase.impl;
+package fi.develon.vsm.usecase.impl.company;
 
 import fi.develon.vsm.domain.core.dto.UnregisterCompanyRequest;
 import fi.develon.vsm.domain.core.dto.UnregisterCompanyResponse;
 import fi.develon.vsm.domain.core.entity.Company;
 import fi.develon.vsm.domain.repository.CompanyRepository;
-import fi.develon.vsm.usecase.UnregisterCompanyUseCase;
+import fi.develon.vsm.usecase.company.UnregisterCompanyUseCase;
 import fi.develon.vsm.usecase.exception.CompanyNotRegisteredException;
 import io.vavr.control.Try;
 

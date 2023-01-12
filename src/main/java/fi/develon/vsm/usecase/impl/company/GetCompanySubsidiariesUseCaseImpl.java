@@ -1,10 +1,10 @@
-package fi.develon.vsm.usecase.impl;
+package fi.develon.vsm.usecase.impl.company;
 
 import fi.develon.vsm.domain.core.dto.GetCompanySubsidiariesRequest;
 import fi.develon.vsm.domain.core.dto.GetCompanySubsidiariesResponse;
 import fi.develon.vsm.domain.core.entity.Company;
 import fi.develon.vsm.domain.repository.CompanyRepository;
-import fi.develon.vsm.usecase.GetCompanySubsidiariesUseCase;
+import fi.develon.vsm.usecase.company.GetCompanySubsidiariesUseCase;
 import fi.develon.vsm.usecase.exception.CompanyNotRegisteredException;
 import io.vavr.control.Try;
 

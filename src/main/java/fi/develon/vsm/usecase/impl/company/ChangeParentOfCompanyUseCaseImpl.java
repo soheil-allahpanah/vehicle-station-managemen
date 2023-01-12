@@ -1,10 +1,10 @@
-package fi.develon.vsm.usecase.impl;
+package fi.develon.vsm.usecase.impl.company;
 
 import fi.develon.vsm.domain.core.dto.ChangeParentOfCompanyRequest;
 import fi.develon.vsm.domain.core.dto.ChangeParentOfCompanyResponse;
 import fi.develon.vsm.domain.core.entity.Company;
 import fi.develon.vsm.domain.repository.CompanyRepository;
-import fi.develon.vsm.usecase.ChangeParentOfCompanyUseCase;
+import fi.develon.vsm.usecase.company.ChangeParentOfCompanyUseCase;
 import fi.develon.vsm.usecase.exception.CompanyNotRegisteredException;
 import fi.develon.vsm.usecase.exception.NewParentCompanyNotRegisteredException;
 import io.vavr.control.Try;
