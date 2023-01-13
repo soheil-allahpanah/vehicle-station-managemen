@@ -37,6 +37,7 @@ public class GetCompanySubsidiariesUseCaseImpl implements GetCompanySubsidiaries
                 .build();
     }
 
+    @Override
     public Try<GetCompanySubsidiariesResponse> getSubsidiaries(GetCompanySubsidiariesRequest request) {
         log.info("get all subsidiaries of {} ", request.getIdentificationNumber().value());
         Optional<Company> companyByIdNumOpt = companyRepository.findByIdentificationNumber(request.getIdentificationNumber());
