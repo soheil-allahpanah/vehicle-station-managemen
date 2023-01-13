@@ -48,7 +48,7 @@ public class RemoveStationUseCaseImpl implements RemoveStationUseCase {
         log.info("station with name {} removed", stationOpt.get().getName());
         return Try.success(RemoveStationResponse.builder()
                 .removedStation(stationOpt.get().getStationId())
-                .ownerId(ownerOpt.get().getIdentificationNumber())
+                .owner(ownerOpt.get().getIdentificationNumber())
                 .ownerName(ownerOpt.get().getName())
                 .build()
         );

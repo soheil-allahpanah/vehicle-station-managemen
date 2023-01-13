@@ -3,12 +3,10 @@ package fi.develon.vsm.usecase.impl.station;
 import fi.develon.vsm.domain.core.dto.AddStationToCompanyRequest;
 import fi.develon.vsm.domain.core.dto.AddStationToCompanyResponse;
 import fi.develon.vsm.domain.core.entity.Company;
-import fi.develon.vsm.domain.core.entity.GeoLocation;
 import fi.develon.vsm.domain.core.entity.Station;
 import fi.develon.vsm.domain.repository.CompanyRepository;
 import fi.develon.vsm.domain.repository.StationRepository;
 import fi.develon.vsm.usecase.exception.CompanyNotRegisteredException;
-import fi.develon.vsm.usecase.exception.DuplicateCompanyByNameException;
 import fi.develon.vsm.usecase.exception.DuplicateStationByLocationException;
 import fi.develon.vsm.usecase.exception.DuplicateStationByNameException;
 import fi.develon.vsm.usecase.station.AddStationToCompanyUseCase;
@@ -57,7 +55,7 @@ public class AddStationToCompanyUseCaseImpl implements AddStationToCompanyUseCas
         var savedStation = stationRepository.save(station);
         log.debug("station with id {} saved successfully", savedStation.getStationId().value());
         return Try.success(AddStationToCompanyResponse.builder()
-                .ownerId(ownerOpt.get().getIdentificationNumber())
+                .owner(ownerOpt.get().getIdentificationNumber())
                 .ownerName(ownerOpt.get().getName())
                 .location(savedStation.getLocation())
                 .name(savedStation.getName())

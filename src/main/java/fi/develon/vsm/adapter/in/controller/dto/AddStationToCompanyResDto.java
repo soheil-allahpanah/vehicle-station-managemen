@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 public class AddStationToCompanyResDto {
 
-    private String ownerId;
+    private String owner;
     private String ownerName;
     private Long stationId;
     private String stationName;

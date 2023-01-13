@@ -33,7 +33,7 @@ CREATE OR REPLACE FUNCTION distance(
     lat2 double precision,
     lon2 double precision)
   RETURNS double precision AS
-$BODY$
+'
 DECLARE
     R integer = 6371e3; -- Meters
     rad double precision = 0.01745329252;
@@ -48,55 +48,62 @@ DECLARE
 BEGIN
     RETURN R * c;
 END
-$BODY$
+'
   LANGUAGE plpgsql VOLATILE
   COST 100;
 
 
- create or replace function get_companies_subsidiaries(_identification_number varchar(256))
+drop function if exists get_companies_subsidiaries;
+
+create or replace function get_companies_subsidiaries(_identification_number varchar(256))
  RETURNS TABLE (id int8, identification_number varchar(256), parent_id int8, company_name varchar(256), created_at timestamp, updated_at timestamp)
- as  $$
+ as
+'
  Begin
  	 RETURN QUERY EXECUTE format(
- 	 'WITH RECURSIVE search_tree(id, identification_number, parent_id, company_name, created_at, updated_at) AS (
- 	    SELECT id, identification_number, parent_id, company_name, created_at, updated_at FROM companies c  where c.identification_number = ''%s''
+ 	 ''WITH RECURSIVE search_tree(id, identification_number, parent_id, company_name, created_at, updated_at) AS (
+ 	    SELECT id, identification_number, parent_id, company_name, created_at, updated_at FROM companies c  where c.identification_number = ''''%s''''
  	  		UNION
  	    SELECT c.id, c.identification_number, c.parent_id, c.company_name, c.created_at, c.updated_at
  	    	FROM companies c, search_tree st
  	    	WHERE c.parent_id  = st.id
  		)
- 		SELECT * FROM search_tree ;', _identification_number);
- End; $$
+ 		SELECT * FROM search_tree ;'', _identification_number);
+ End;
+ '
  language 'plpgsql';
 
+drop function if exists get_station_with_distance;
+create or replace function get_station_with_distance(_identification_number varchar(256), _latitude double precision, _longitude double precision)
+   RETURNS TABLE (company_id int8
+   , station_id int8
+   , company_name varchar(256)
+   , station_name varchar(256)
+   , latitude double precision
+   , longitude double precision
+   , identification_number varchar(256)
+   , parent_id int8
+   , distance double precision
+   , created_at timestamp
+   , updated_at timestamp
+   )
+   as
+   '
+   Begin
+   	 RETURN QUERY EXECUTE format(''
+  WITH RECURSIVE search_tree(company_id, station_id, company_name,  station_name, latitude, longitude, identification_number, parent_id, distance, created_at, updated_at) AS (
+   	    SELECT c.id as company_id, s.id as station_id, c.company_name, s.station_name, s.latitude, s.longitude, c.identification_number, c.parent_id, distance(%s, %s, s.latitude, s.longitude) as distance, c.created_at, c.updated_at
+   	    FROM companies c, stations s where c.id  = s.owner_id and c.identification_number = ''''%s''''
+   	  		UNION
+   	    SELECT c.id as company_id, sa.id as station_id, c.company_name , sa.station_name, sa.latitude, sa.longitude, c.identification_number, c.parent_id, distance(%s, %s, sa.latitude, sa.longitude) as distance, c.created_at, c.updated_at
+   	    	FROM companies c, stations sa, search_tree st
+   	    	WHERE c.parent_id  = st.company_id and c.id = sa.owner_id
+   		)
+   		SELECT
+   		company_id, station_id, company_name,  station_name, latitude, longitude, identification_number, parent_id, distance , created_at, updated_at
+   FROM search_tree order by distance asc ;
 
-  create or replace function get_station_with_distance(_identification_number varchar(256), _latitude double precision, _longitude double precision)
-  RETURNS TABLE (id int8
-  , company_name varchar(256)
-  ,station_name varchar(256)
-  , latitude double precision
-  , longitude double precision
-  , identification_number varchar(256)
-  , parent_id int8
-  , distance double precision
-  , created_at timestamp
-  , updated_at timestamp
-  )
-  as  $$
-  Begin
-  	 RETURN QUERY EXECUTE format('
- WITH RECURSIVE search_tree(company_id, company_name,  station_name, latitude, longitude, identification_number, parent_id, distance, created_at, updated_at) AS (
-  	    SELECT c.id as company_id, c.company_name, s.station_name, s.latitude, s.longitude, c.identification_number, c.parent_id, distance(%s, %s, s.latitude, s.longitude) as distance, c.created_at, c.updated_at
-  	    FROM companies c, stations s where c.id  = s.owner_id and c.identification_number = ''%s''
-  	  		UNION
-  	    SELECT c.id as company_id, c.company_name , sa.station_name, sa.latitude, sa.longitude, c.identification_number, c.parent_id, distance(%s, %s, sa.latitude, sa.longitude) as distance, c.created_at, c.updated_at
-  	    	FROM companies c, stations sa, search_tree st
-  	    	WHERE c.parent_id  = st.company_id and c.id = sa.owner_id
-  		)
-  		SELECT
-  		company_id, company_name,  station_name, latitude, longitude, identification_number, parent_id, distance , created_at, updated_at
-  FROM search_tree order by distance asc ;
-
- ', _latitude, _longitude, _identification_number , _latitude, _longitude);
-  End; $$
-  language 'plpgsql';
+  '', _latitude, _longitude, _identification_number , _latitude, _longitude);
+   End;
+   '
+   language 'plpgsql';

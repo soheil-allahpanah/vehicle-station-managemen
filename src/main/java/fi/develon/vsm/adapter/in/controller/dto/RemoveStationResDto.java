@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RemoveStationResDto {
 
-    private String ownerId;
+    private String owner;
     private String ownerName;
     private Long removedStation;
 

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AddStationToCompanyResponse {
 
-    private IdentificationNumber ownerId;
+    private IdentificationNumber owner;
     private CompanyName ownerName;
     private StationName name;
     private StationId stationId;

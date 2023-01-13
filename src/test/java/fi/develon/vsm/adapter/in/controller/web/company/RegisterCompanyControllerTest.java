@@ -1,4 +1,4 @@
-package fi.develon.vsm.adapter.in.controller.web;
+package fi.develon.vsm.adapter.in.controller.web.company;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import fi.develon.vsm.TestApplication;

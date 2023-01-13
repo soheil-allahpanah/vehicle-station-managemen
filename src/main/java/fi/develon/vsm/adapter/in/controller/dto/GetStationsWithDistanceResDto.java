@@ -12,14 +12,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetStationsWithDistanceResDto {
-    private String identificationNumber;
-    private String companyName;
+    private String ownerIdentificationNumber;
+    private String ownerName;
     private Long stationId;
     private String stationName;
     private BigDecimal latitude;
     private BigDecimal longitude;
     private BigDecimal distance;
     private BigDecimal distanceInKm;
-
-
 }

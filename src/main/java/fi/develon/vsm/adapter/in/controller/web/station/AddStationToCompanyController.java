@@ -2,15 +2,10 @@ package fi.develon.vsm.adapter.in.controller.web.station;
 
 import fi.develon.vsm.adapter.in.controller.dto.AddStationToCompanyReqDto;
 import fi.develon.vsm.adapter.in.controller.dto.AddStationToCompanyResDto;
-import fi.develon.vsm.adapter.in.controller.dto.RenameCompanyReqDto;
-import fi.develon.vsm.adapter.in.controller.dto.RenameCompanyResDto;
 import fi.develon.vsm.domain.core.dto.AddStationToCompanyRequest;
-import fi.develon.vsm.domain.core.dto.RenameCompanyRequest;
-import fi.develon.vsm.domain.core.entity.CompanyName;
 import fi.develon.vsm.domain.core.entity.GeoLocation;
 import fi.develon.vsm.domain.core.entity.IdentificationNumber;
 import fi.develon.vsm.domain.core.entity.StationName;
-import fi.develon.vsm.usecase.company.RenameCompanyUseCase;
 import fi.develon.vsm.usecase.station.AddStationToCompanyUseCase;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -51,7 +46,7 @@ public class AddStationToCompanyController {
                 .build()).get();
 
         return AddStationToCompanyResDto.builder()
-                .ownerId(res.getOwnerId().value())
+                .owner(res.getOwner().value())
                 .ownerName(res.getOwnerName().value())
                 .stationId(res.getStationId().value())
                 .stationName(res.getName().name())

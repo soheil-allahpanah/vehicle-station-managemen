@@ -1,16 +1,9 @@
 package fi.develon.vsm.adapter.in.controller.web.station;
 
-import fi.develon.vsm.adapter.in.controller.dto.RelocateStationResDto;
 import fi.develon.vsm.adapter.in.controller.dto.RemoveStationResDto;
-import fi.develon.vsm.adapter.in.controller.dto.RenameCompanyResDto;
-import fi.develon.vsm.domain.core.dto.RelocateStationRequest;
 import fi.develon.vsm.domain.core.dto.RemoveStationRequest;
-import fi.develon.vsm.domain.core.dto.RenameCompanyRequest;
-import fi.develon.vsm.domain.core.entity.CompanyName;
-import fi.develon.vsm.domain.core.entity.GeoLocation;
 import fi.develon.vsm.domain.core.entity.IdentificationNumber;
 import fi.develon.vsm.domain.core.entity.StationId;
-import fi.develon.vsm.usecase.company.RenameCompanyUseCase;
 import fi.develon.vsm.usecase.station.RemoveStationUseCase;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -18,7 +11,6 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -51,7 +43,7 @@ public class RemoveStationController {
                 .build()).get();
         return RemoveStationResDto.builder()
                 .removedStation(res.getRemovedStation().value())
-                .ownerId(res.getOwnerId().value())
+                .owner(res.getOwner().value())
                 .ownerName(res.getOwnerName().value())
                 .build();
 

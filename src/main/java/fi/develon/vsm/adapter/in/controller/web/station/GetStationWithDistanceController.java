@@ -1,7 +1,6 @@
 package fi.develon.vsm.adapter.in.controller.web.station;
 
 import fi.develon.vsm.adapter.in.controller.dto.GetStationsWithDistanceResDto;
-import fi.develon.vsm.adapter.in.controller.mapper.GetCompanySubsidiariesControllerMapper;
 import fi.develon.vsm.common.ObjUtil;
 import fi.develon.vsm.domain.core.dto.GetStationsWithDistanceRequest;
 import fi.develon.vsm.domain.core.entity.GeoLocation;
@@ -35,7 +34,7 @@ public class GetStationWithDistanceController {
             @ApiResponse(code = 200, message = "Successfully perform the operation"),
             @ApiResponse(code = 500, message = "Internal server error.")
     })
-    @GetMapping("/{identification_number}/nearby")
+    @GetMapping("/{identification_number}/nearbyStation")
     @ResponseBody
     public List<GetStationsWithDistanceResDto> subsidiaries(@NotBlank @PathVariable(name = "identification_number") String identificationNumber
             , @Valid @NotNull @RequestParam(name = "lat") String latitude
@@ -51,8 +50,8 @@ public class GetStationWithDistanceController {
 
         return res.stream().map(r -> GetStationsWithDistanceResDto.builder()
                 .stationId(r.getStationId().value())
-                .companyName(r.getCompanyName().value())
-                .identificationNumber(r.getIdentificationNumber().value())
+                .ownerName(r.getCompanyName().value())
+                .ownerIdentificationNumber(r.getIdentificationNumber().value())
                 .stationName(r.getStationName().name())
                 .latitude(r.getLocation().latitude())
                 .longitude(r.getLocation().longitude())

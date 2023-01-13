@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RemoveStationResponse {
 
-    private IdentificationNumber ownerId;
+    private IdentificationNumber owner;
     private CompanyName ownerName;
     private StationId removedStation;
 
