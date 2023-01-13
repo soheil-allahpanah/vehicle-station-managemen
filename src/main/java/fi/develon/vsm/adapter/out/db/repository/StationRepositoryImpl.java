@@ -7,6 +7,7 @@ import fi.develon.vsm.domain.repository.StationRepository;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +73,7 @@ public class StationRepositoryImpl implements StationRepository {
                         .location(new GeoLocation(BigDecimal.valueOf((Double) r[4]), BigDecimal.valueOf((Double) r[5])))
                         .distance(BigDecimal.valueOf((Double) r[8]))
                         .distanceByKm(BigDecimal.valueOf((Double) r[8]).compareTo(BigDecimal.ZERO) > 0 ?
-                                BigDecimal.valueOf((Double) r[8]).divide(BigDecimal.valueOf(1000)) : BigDecimal.ZERO )
+                                BigDecimal.valueOf((Double) r[8]).divide(BigDecimal.valueOf(1000), RoundingMode.CEILING) : BigDecimal.ZERO)
                         .build()
         ).toList();
     }

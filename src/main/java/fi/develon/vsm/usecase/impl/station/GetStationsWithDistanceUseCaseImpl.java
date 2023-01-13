@@ -28,7 +28,7 @@ public class GetStationsWithDistanceUseCaseImpl implements GetStationsWithDistan
         if (request.getRadius() != null) {
             log.info("station should be in {} km radius"
                     , request.getRadius());
-            res = res.stream().filter(r -> r.getDistance().longValue() <= request.getRadius() * 1000).toList();
+            res = res.stream().filter(r -> r.getDistanceByKm().longValue() <= request.getRadius()).toList();
         }
         return Try.success(res);
     }
