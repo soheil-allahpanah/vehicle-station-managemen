@@ -5,9 +5,9 @@ spring:
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:postgresql://192.168.122.242:5432/vehicle_station_management
+    username: vehicle_station_management
+    password: vehicle_station_management
     driverClassName: org.postgresql.Driver
     hikari:
       poolName: Hikari

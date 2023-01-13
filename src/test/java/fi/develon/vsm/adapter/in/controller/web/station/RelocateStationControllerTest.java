@@ -51,7 +51,7 @@ public class RelocateStationControllerTest extends TestApplication {
         RelocateStationReqDto relocateRequest = RelocateStationReqDto.builder()
                 .latitude(BigDecimal.valueOf(26.2137))
                 .longitude(BigDecimal.valueOf(1.4671)).build();
-        var relocateRes = mvc.perform(post("/api/v1/stations/"+addStation.getStationId()+"/relocate")
+        var relocateRes = mvc.perform(put("/api/v1/stations/"+addStation.getStationId()+"/relocate")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json.writeValueAsString(relocateRequest)))
                 .andExpect(MockMvcResultMatchers.status().isOk());

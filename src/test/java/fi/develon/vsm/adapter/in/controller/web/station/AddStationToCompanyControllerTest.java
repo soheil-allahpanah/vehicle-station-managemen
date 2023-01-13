@@ -21,7 +21,8 @@ public class AddStationToCompanyControllerTest extends TestApplication {
 
 
     @Test
-    void addStationToCompany() throws Exception {
+    void renameStation() throws Exception {
+
 
         RegisterCompanyReqDto rootRequest = RegisterCompanyReqDto.builder()
                 .name("c0")
@@ -32,15 +33,11 @@ public class AddStationToCompanyControllerTest extends TestApplication {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json.writeValueAsString(rootRequest)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-
-
-
-
         AddStationToCompanyReqDto addStationToCompanyReqDto = new AddStationToCompanyReqDto("st01"
                 , BigDecimal.valueOf(27.2137)
                 , BigDecimal.valueOf(2.4671)
         );
-        var changeParentResponseActions = mvc.perform(put("/api/v1/companies/1000/addStation")
+        var changeParentResponseActions = mvc.perform(post("/api/v1/companies/1000/addStation")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json.writeValueAsString(addStationToCompanyReqDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk());

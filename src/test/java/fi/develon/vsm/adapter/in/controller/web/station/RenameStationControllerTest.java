@@ -12,13 +12,14 @@ import java.math.BigDecimal;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 
 public class RenameStationControllerTest extends TestApplication {
 
 
     @Test
-    void addStationToCompany() throws Exception {
+    void renameStation() throws Exception {
 
         RegisterCompanyReqDto rootRequest = RegisterCompanyReqDto.builder()
                 .name("c0")
@@ -49,7 +50,7 @@ public class RenameStationControllerTest extends TestApplication {
         RenameStationReqDto renameRequest = RenameStationReqDto.builder()
                 .newName("newSt01")
                 .build();
-        var renameRes = mvc.perform(post("/api/v1/stations/"+addStation.getStationId()+"/rename")
+        var renameRes = mvc.perform(put("/api/v1/stations/"+addStation.getStationId()+"/rename")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json.writeValueAsString(renameRequest)))
                 .andExpect(MockMvcResultMatchers.status().isOk());

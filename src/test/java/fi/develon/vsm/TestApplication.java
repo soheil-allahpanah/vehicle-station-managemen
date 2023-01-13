@@ -4,6 +4,7 @@ package fi.develon.vsm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import fi.develon.vsm.adapter.out.db.repository.CompanyRepositoryJpaInterface;
+import fi.develon.vsm.adapter.out.db.repository.StationRepositoryJpaInterface;
 import fi.develon.vsm.domain.repository.CompanyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Sql(scripts = "classpath:00_create_tables.sql")
+@Sql(scripts = "classpath:00_initial_scripts.sql")
 @ContextConfiguration(initializers = {TestApplication.Initializer.class})
 @AutoConfigureMockMvc
 @Testcontainers
@@ -40,6 +41,9 @@ public class TestApplication {
 
     @Autowired
     private CompanyRepositoryJpaInterface repositoryJpaInterface;
+
+    @Autowired
+    private StationRepositoryJpaInterface stationRepositoryJpaInterface;
 
     @Autowired
     protected ObjectMapper json;
@@ -69,6 +73,7 @@ public class TestApplication {
     @BeforeEach
     void beforeEach() {
         repositoryJpaInterface.deleteAll();
+        stationRepositoryJpaInterface.deleteAll();
     }
 
 
