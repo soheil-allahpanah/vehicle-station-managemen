@@ -44,7 +44,7 @@ Notes:
 
 ## Prerequisites
 
-#### Java Version 14
+#### Java Version 11
 
 #### Maven 3+
 
