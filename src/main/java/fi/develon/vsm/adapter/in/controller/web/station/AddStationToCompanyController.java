@@ -53,6 +53,7 @@ public class AddStationToCompanyController {
         return AddStationToCompanyResDto.builder()
                 .ownerId(res.getOwnerId().value())
                 .ownerName(res.getOwnerName().value())
+                .stationId(res.getStationId().value())
                 .stationName(res.getName().name())
                 .longitude(res.getLocation().longitude())
                 .latitude(res.getLocation().latitude())

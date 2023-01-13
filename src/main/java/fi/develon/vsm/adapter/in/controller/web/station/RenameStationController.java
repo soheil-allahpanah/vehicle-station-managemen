@@ -42,20 +42,15 @@ public class RenameStationController {
     })
     @PutMapping("/{station_id}/rename")
     @ResponseBody
-    public RenameStationResDto rename(
-            @NotBlank @PathVariable(name = "owner_identification_number") String identificationNumber
-            , @NotNull @PathVariable(name = "station_id") Long stationId
+    public RenameStationResDto rename(@NotNull @PathVariable(name = "station_id") Long stationId
             , @Valid @RequestBody RenameStationReqDto request) {
         var res = renameCompanyUseCase.rename(RenameStationRequest.builder()
                 .newName(new StationName(request.getNewName()))
                 .id(new StationId(stationId))
-                .owner(new IdentificationNumber(identificationNumber))
                 .build()).get();
 
         return RenameStationResDto.builder()
                 .newName(res.getNewName().name())
-                .ownerId(res.getOwnerId().value())
-                .newName(res.getOwnerName().value())
                 .id(res.getId().value())
                 .build();
 

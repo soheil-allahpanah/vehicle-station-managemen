@@ -1,9 +1,6 @@
 package fi.develon.vsm.domain.core.dto;
 
-import fi.develon.vsm.domain.core.entity.CompanyName;
-import fi.develon.vsm.domain.core.entity.GeoLocation;
-import fi.develon.vsm.domain.core.entity.IdentificationNumber;
-import fi.develon.vsm.domain.core.entity.StationName;
+import fi.develon.vsm.domain.core.entity.*;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +18,7 @@ public class AddStationToCompanyResponse {
     private IdentificationNumber ownerId;
     private CompanyName ownerName;
     private StationName name;
+    private StationId stationId;
     private GeoLocation location;
     private LocalDateTime updatedAt;
 

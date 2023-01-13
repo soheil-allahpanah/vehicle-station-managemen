@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RenameStationResponse {
 
-    private IdentificationNumber ownerId;
-    private CompanyName ownerName;
     private StationId id;
     private StationName newName;
 

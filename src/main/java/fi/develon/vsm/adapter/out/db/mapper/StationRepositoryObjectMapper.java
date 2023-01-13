@@ -12,6 +12,8 @@ public class StationRepositoryObjectMapper implements RepositoryObjectMapper<Sta
                 .owner(new CompanyId(entity.getOwner()))
                 .name(new StationName(entity.getName()))
                 .location(new GeoLocation(entity.getLatitude(), entity.getLongitude()))
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
                 .build();
     }
 

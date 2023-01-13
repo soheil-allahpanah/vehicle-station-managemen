@@ -13,10 +13,12 @@ import fi.develon.vsm.usecase.exception.DuplicateStationByLocationException;
 import fi.develon.vsm.usecase.exception.DuplicateStationByNameException;
 import fi.develon.vsm.usecase.station.AddStationToCompanyUseCase;
 import io.vavr.control.Try;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Slf4j
 public class AddStationToCompanyUseCaseImpl implements AddStationToCompanyUseCase {
     CompanyRepository companyRepository;
     StationRepository stationRepository;
@@ -28,17 +30,21 @@ public class AddStationToCompanyUseCaseImpl implements AddStationToCompanyUseCas
 
     @Override
     public Try<AddStationToCompanyResponse> addStation(AddStationToCompanyRequest request) {
+        log.info("add station {} to company {}", request.getName().name(), request.getOwner().value());
         Optional<Company> ownerOpt = companyRepository.findByIdentificationNumber(request.getOwner());
         if (ownerOpt.isEmpty()) {
+            log.debug("owner company with identification number : {} not found", request.getOwner().value());
             return Try.failure(new CompanyNotRegisteredException("Owner company with given identificationNumber not found", 404));
         }
         Optional<Station> stationByNameOpt = stationRepository.findByName(request.getName());
         if (stationByNameOpt.isPresent()) {
-            return Try.failure(new DuplicateStationByNameException("Owner company with given identificationNumber not found", 409));
+            log.debug("station with id {} with same name {} exist", stationByNameOpt.get().getStationId().value(), request.getName().name());
+            return Try.failure(new DuplicateStationByNameException("station with same name exist", 409));
         }
         Optional<Station> stationByLocationOpt = stationRepository.findByLocation(request.getLocation());
         if (stationByLocationOpt.isPresent()) {
-            return Try.failure(new DuplicateStationByLocationException("Owner company with given identificationNumber not found", 409));
+            log.debug("station with id {} with same location {} exist", stationByLocationOpt.get().getStationId().value(), request.getLocation());
+            return Try.failure(new DuplicateStationByLocationException("station with same location exist", 409));
         }
 
         Station station = Station.builder()
@@ -49,11 +55,13 @@ public class AddStationToCompanyUseCaseImpl implements AddStationToCompanyUseCas
                 .createdAt(LocalDateTime.now())
                 .build();
         var savedStation = stationRepository.save(station);
+        log.debug("station with id {} saved successfully", savedStation.getStationId().value());
         return Try.success(AddStationToCompanyResponse.builder()
                 .ownerId(ownerOpt.get().getIdentificationNumber())
                 .ownerName(ownerOpt.get().getName())
                 .location(savedStation.getLocation())
                 .name(savedStation.getName())
+                .stationId(savedStation.getStationId())
                 .updatedAt(savedStation.getUpdatedAt())
                 .build());
     }

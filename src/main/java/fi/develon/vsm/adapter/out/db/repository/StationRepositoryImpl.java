@@ -24,7 +24,7 @@ public class StationRepositoryImpl implements StationRepository {
 
     @Override
     public Optional<Station> findById(StationId stationId) {
-        return Optional.empty();
+        return stationRepositoryJpaInterface.findById(stationId.value()).map(repositoryObjectMapper::toDomain);
     }
 
     @Override

@@ -7,9 +7,12 @@ import fi.develon.vsm.domain.repository.CompanyRepository;
 import fi.develon.vsm.usecase.company.GetCompanySubsidiariesUseCase;
 import fi.develon.vsm.usecase.exception.CompanyNotRegisteredException;
 import io.vavr.control.Try;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+
+@Slf4j
 public class GetCompanySubsidiariesUseCaseImpl implements GetCompanySubsidiariesUseCase {
 
     CompanyRepository companyRepository;
@@ -35,8 +38,10 @@ public class GetCompanySubsidiariesUseCaseImpl implements GetCompanySubsidiaries
     }
 
     public Try<GetCompanySubsidiariesResponse> getSubsidiaries(GetCompanySubsidiariesRequest request) {
+        log.info("get all subsidiaries of {} ", request.getIdentificationNumber().value());
         Optional<Company> companyByIdNumOpt = companyRepository.findByIdentificationNumber(request.getIdentificationNumber());
         if (companyByIdNumOpt.isEmpty()) {
+            log.debug("company of {} not found", request.getIdentificationNumber().value());
             return Try.failure(new CompanyNotRegisteredException("Company with given identificationNumber not found", 404));
         }
         List<Company> flattenCompany = companyRepository.getCompaniesSubsidiaries(request.getIdentificationNumber());
@@ -44,7 +49,7 @@ public class GetCompanySubsidiariesUseCaseImpl implements GetCompanySubsidiaries
 
         List<Company> subsidiaries = fillSubsidiaries(companyByIdNumOpt.get(), flattenCompany);
         companyByIdNumOpt.get().setSubsidiaries(subsidiaries);
-
+        log.info("returning all subsidiaries of {} ", companyByIdNumOpt.get().getName());
         return Try.success(toResponse(companyByIdNumOpt.get()));
     }
 

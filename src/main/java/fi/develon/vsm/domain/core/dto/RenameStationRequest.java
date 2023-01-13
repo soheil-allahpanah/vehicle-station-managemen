@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RenameStationRequest {
 
-    private IdentificationNumber owner;
     private StationId id;
     private StationName newName;
 

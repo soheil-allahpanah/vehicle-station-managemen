@@ -16,6 +16,7 @@ public class AddStationToCompanyResDto {
 
     private String ownerId;
     private String ownerName;
+    private Long stationId;
     private String stationName;
     private BigDecimal latitude;
     private BigDecimal longitude;
