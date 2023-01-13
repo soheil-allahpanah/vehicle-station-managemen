@@ -1,4 +1,4 @@
-package fi.develon.vsm.usecase.impl;
+package fi.develon.vsm.usecase.impl.company;
 
 import fi.develon.vsm.domain.core.dto.RegisterCompanyRequest;
 import fi.develon.vsm.domain.core.dto.UnregisterCompanyRequest;
