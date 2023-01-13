@@ -83,7 +83,7 @@ command:
 Then go to the target directory and run the following command:
 
 ```shell
-java -jar target/vehicle-station-management-1.0-SNAPSHOT.jar
+java -jar target/vehicle-station-management-1.0.0.jar
 
 ```
 
